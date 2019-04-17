@@ -1,0 +1,28 @@
+---
+
+- hosts: appserver
+
+  tasks:
+  - name: Install java version 8
+    apt: 
+      name: openjdk-8-jdk
+      update_cache: yes
+      state: present
+  - name: Create install directory
+    file:
+      state: directory
+      path: /opt/helloworld-mvn/
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: Copy files to remote host
+    copy:
+      src: files/helloworld.jar
+      dest: /opt/helloworld-mvn/
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: Execute app
+    command: java -jar /opt/helloworld-mvn/helloworld.jar
