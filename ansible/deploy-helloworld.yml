@@ -1,12 +1,12 @@
 ---
 
 - hosts: appserver
+  remote_user: root
 
   tasks:
   - name: Install java version 8
     apt: 
       name: openjdk-8-jdk
-      update_cache: yes
       state: present
   - name: Create install directory
     file:
